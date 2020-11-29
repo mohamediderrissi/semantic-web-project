@@ -1,41 +1,44 @@
 import React, { Component, useState } from 'react';
-import ReactMapGl from 'react-map-gl';
-import logo from './logo.svg';
-import './App.css';
+import {Button, Container, Grid} from '@material-ui/core'
+import UserSelection from './components/UserSelection';
+import MapComponent from './components/MapComponent';
+import TableComponent from './components/TableComponent';
 
-class App extends Component {
-
-  state = {
-    viewport: {
-      latitude: 45.4211,
-      longitude: -75.6903,
-      width: "100vw",
-      height: "100vh",
-      zoom: 10
-    }
-  };
-  render() {
+const App = () =>  {
+  const [clicked, setClicked] = useState(false);
+  const handleClick = () => {
+    setClicked(true);
+  }
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js </code> and save to reload.
-        </p>
-        <div width="500px" height="400px">
-          <ReactMapGl { ...this.state.viewport}
-          mapStyle="mapbox://styles/jeuxconflit/cki0u2ojv2n5o1aluozw00egq" 
-          mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-          onViewportChange={(viewport) => this.setState({viewport: viewport })}
-          >
-            
-          </ReactMapGl>
-        </div>
+      <div>
+        {!clicked && <Container fixed>
+          <UserSelection />
+          <Grid Container>
+            <Grid item xs={12}>
+              <div style={{ display: "flex", justifyContent: "center", margin: "10px" }}>
+                <Button 
+                variant="contained" 
+                color="secondary"
+                onClick={() => handleClick()}
+                >
+                GO!</Button>
+              </div>
+            </Grid>
+            <Grid item>
+              <TableComponent />
+            </Grid>
+          </Grid>
+        </Container>}
+        {clicked && (
+          <Container  fixed>
+              <div style={{ position: "absolute", width:"725px", height: "300px", margin: "15px" }}>
+                <h1>Alaoui</h1>
+                <MapComponent />
+              </div>          
+          </Container>
+        )}
       </div>
     );
-  }
 }
 
 export default App;
