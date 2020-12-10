@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import {Grid} from '@material-ui/core';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
-const UserSelection = () => {
-    const cities = ["Saint-etienne", "Lyon","Paris"];
+const UserSelection = ({cities}) => {
+    //const cities = ["Saint-etienne", "Lyon","Paris"];
     const types = ["Gare SNCF", "Hospitals","Libraries","Schools"];
     const [selectedCity, setSelectedCity] = useState(cities[0]);
     const [selectedType, setSelectedTypes] = useState(types[0]);

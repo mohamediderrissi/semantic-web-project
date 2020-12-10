@@ -26,7 +26,7 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-const TableComponent = () => {
+const TableComponent = ({data}) => {
   const classes = useStyles();
 
   return (
@@ -34,11 +34,9 @@ const TableComponent = () => {
       <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell>City</TableCell>
+            <TableCell align="right">latitude</TableCell>
+            <TableCell align="right">Longtitude</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
