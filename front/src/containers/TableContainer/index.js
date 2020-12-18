@@ -5,7 +5,9 @@ import { getData } from '../../service';
 import { selectRessourceForCity } from '../../service/queries';
 
 const TableContainer = ({state}) => {
-    const[rows, setRows] = useState([]);
+    const[rows, setRows] = useState([
+      {uri: undefined, lat: undefined, lont: undefined, label: undefined}
+    ]);
     const handleClick = async() => {
         const results=[];
         const data = await getData(selectRessourceForCity(state.selectedCity,state.selectedType));

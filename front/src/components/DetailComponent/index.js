@@ -1,4 +1,5 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,6 +8,16 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
 
 const DetailComponent = ({uri, data}) => {
     const renderDetails = () => (
@@ -14,8 +25,8 @@ const DetailComponent = ({uri, data}) => {
         <Table size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell align="left">Predicate</TableCell>
-              <TableCell align="center">Object</TableCell>
+              <StyledTableCell align="left">Predicate</StyledTableCell>
+              <StyledTableCell align="center">Object</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>

@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import ReactMapGl from 'react-map-gl';
-const MapComponent = () => {
+import ReactMapGl, { Marker} from 'react-map-gl';
+import  './style.css';
+
+const MapComponent = ({latitude, longitude, label }) => {
     const [state, setState] = useState(
         {
             viewport: {
-              latitude: 45.4211,
-              longitude: -75.6903,
-              width: "100vw",
-              height: "100vh",
-              zoom: 10
+              latitude: latitude===undefined ? 45.4397 : latitude,
+              longitude: longitude===undefined ?4.3872 : longitude,
+              width: "50vw",
+              height: "50vh",
+              zoom: 15
             }
           }
     );
@@ -20,7 +22,16 @@ const MapComponent = () => {
             onViewportChange={(viewport) => setState({viewport: viewport })}
             style={{ width: "100px", height:"100px"}}
             >
-            
+              <Marker latitude={state.viewport.latitude} longitude={state.viewport.longitude}>
+                <button
+                class="marker-btn"
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+                >
+                  <img src='/position-marker.png' alt='poistion-marker' />
+                </button>
+              </Marker>            
             </ReactMapGl>
       </div>
     );
