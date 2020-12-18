@@ -1,7 +1,7 @@
 const getData = async (SparqlQuery) => { 
 let Data = null;
 const query = encodeURIComponent(SparqlQuery);
-await fetch("http://localhost:3030/One/query", {
+await fetch("http://localhost:3030/one/query", {
   //body: "query=SELECT+%3Fsubject+%3Fpredicate+%3Fobject%0AWHERE+%7B%0A++%3Fsubject+%3Fpredicate+%3Fobject%0A%7D%0ALIMIT+25",
   body: `query=${query}`,
   headers: {
@@ -11,7 +11,7 @@ await fetch("http://localhost:3030/One/query", {
   method: "POST"
 })
 .then(response => response.json())
-.then(data => { console.log(data); Data = data; });
+.then(data => { Data = data; });
   return Data;
 };
 

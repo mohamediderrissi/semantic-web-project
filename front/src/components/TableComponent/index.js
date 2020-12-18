@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,53 +7,55 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
+import DetailContainer  from '../../containers/DetailContainer';
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
+  row: {
+    cursor: 'pointer',
+  },
 });
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
 
 const TableComponent = ({data}) => {
+  const [showDetails, setShowDetails] = useState(false);
+  const [uri, setUri] = useState(undefined);
   const classes = useStyles();
+  const handleRowClick = (uri) => {
+    setUri(uri);
+    setShowDetails(true);
+  };
+
+  const renderTableComponent = () => (
+  <TableContainer component={Paper}>
+    <Table className={classes.table} size="small" aria-label="a dense table">
+      <TableHead>
+        <TableRow>
+          <TableCell>Label</TableCell>
+          <TableCell align="right">latitude</TableCell>
+          <TableCell align="right">Longtitude</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {data.map((row) => (
+          <TableRow key={row.uri} onClick={() => handleRowClick(row.uri)} className={classes.row}>
+            <TableCell component="th" scope="row">
+              {row.label}
+            </TableCell>
+            <TableCell align="right">{row.lat}</TableCell>
+            <TableCell align="right">{row.lont}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  </TableContainer>
+  );
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            <TableCell>City</TableCell>
-            <TableCell align="right">latitude</TableCell>
-            <TableCell align="right">Longtitude</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <div>
+      {showDetails ? <DetailContainer uri={uri} setShowDetails={setShowDetails} /> : renderTableComponent()}
+    </div>  
   );
 }
 
